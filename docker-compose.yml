@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  card_accounts-dev:
+    build:
+      context: .
+      dockerfile: ./compose/scrapping/Dockerfile-dev
+    volumes:
+      - ./:/app/

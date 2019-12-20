@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<div id="backgroundMask"></div>
+<head>
+<meta charset="utf-8"/>
+<meta content="text/html; charset=utf-8" http-equiv="content-Type"/>
+<meta content="IE=Edge;IE=11;IE=10;IE=9;IE=8" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+<title>여신금융협회-가맹점 매출거래정보 통합조회시스템</title>
+<style>
+        #backgroundMask{
+                position:absolute;
+                z-index:999;
+                background-color:#000;
+                left:0;
+                top:0;
+                width : 100%;
+                height : 100%;
+                opacity : 0.4;
+        }
+    </style>
+<script>
+
+        //HTML5 Tags
+    document.createElement('header');
+    document.createElement('nav');
+    document.createElement('aside');
+    document.createElement('section');
+    document.createElement('article');
+    document.createElement('footer');
+    document.createElement('address');
+
+    //IE console error
+    var console = window.console || {log:function(){}};
+
+    var filter = "win16|win32|win64|mac|macintel";
+    if(navigator.platform){
+        if(filter.indexOf(navigator.platform.toLowerCase()) < 0){
+                location.href = "https://m.cardsales.or.kr/";
+        }
+    }
+    
+    function commissionTopPopup(){
+                var guidePop = window.open( "/page/commission/commissionRefund" , "commissionRefund", "width=1000,height=800,menubar=no,status=no,scrollbars=no,toolbar=no,location=0,resizable=no" );
+
+                guidePop.focus(); 
+        }
+    </script>
+<link href="/assets/css/cardsales.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/assets/css/dev.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/assets/css/jquery-ui.min.css" media="all" rel="stylesheet" type="text/css"/>
+<style>
+.ui-widget-content .ui-icon{
+background-image:none;
+text-indent:0px;
+}
+</style>
+</head>
+<body style="overflow-y : hidden">
+<div class="" id="wrap">
+<!--Header-->
+<header>
+<div class="top_menu">
+<ul>
+<li><a href="/">HOME</a></li>
+<li><a href="/page/member/join/joinForm">회원가입</a></li>
+<li>
+<a href="/signin">로그인</a>
+</li>
+<li><a href="/page/mypage/mer/payperiod">마이페이지</a></li>
+<!-- <li><a href="#">사이트맵</a></li> -->
+</ul>
+</div>
+<div class="gnb_area">
+<h1 class="logo"><a href="/main"><img alt="여신 금융 협회 가맹점 매출거래정보 통합조회 서비스" src="/assets/images/logo.gif"/></a></h1>
+<nav>
+<ul>
+<li><a href="/page/approval/day">승인내역</a></li>
+<li><a href="/page/purchase/day">매입내역</a></li>
+<li><a href="/page/payment/term">입금내역</a></li>
+<li><a href="/page/salebook/list">매출장부</a></li>
+<li class="last"><a href="/page/etcservice/list">기타 서비스</a></li>
+</ul>
+</nav>
+<div class="depth_menu">
+<ul>
+<li class="arrow"><img alt="" src="/assets/images/icon/gnb_arrow.gif"/></li>
+<li><a href="/page/approval/day">일별 승인내역 조회</a></li>
+<li><a href="/page/approval/term">기간별 승인내역 조회</a></li>
+<li><a href="/page/approval/month">월별 승인내역 조회</a></li>
+</ul>
+<ul>
+<li class="arrow"><img alt="" src="/assets/images/icon/gnb_arrow.gif"/></li>
+<li><a href="/page/purchase/day">일별 매입내역 조회</a></li>
+<li><a href="/page/purchase/term">기간별 매입내역 조회</a></li>
+<li><a href="/page/purchase/month">월별 매입내역 조회</a></li>
+</ul>
+<ul>
+<li class="arrow"><img alt="" src="/assets/images/icon/gnb_arrow.gif"/></li>
+<li><a href="/page/payment/term">기간별 입금내역 조회</a></li>
+<li><a href="/page/payment/month">월별 입금집계 조회</a></li>
+</ul>
+<ul>
+<li class="arrow"><img alt="" src="/assets/images/icon/gnb_arrow.gif"/></li>
+<li class="t_align_center"><a href="/page/salebook/list">매출/입금 조회</a></li>
+</ul>
+<ul>
+<li class="arrow"><img alt="" src="/assets/images/icon/gnb_arrow.gif"/></li>
+<li><a href="/page/etcservice/list">실적조회/<br/>부가세신고서 출력</a></li>
+<li><a onclick="commissionTopPopup();" style="cursor:pointer">수수료 환급액 조회</a></li>
+<!-- <li><a href="javascript:goNews();">정보마당</a></li>  -->
+</ul>
+</div>
+</div>
+</header>
+<!--//Header-->
+<!--Content-->
+<div id="container">
+<div id="progressbarArea" style="z-index : 1000;position : absolute;top:300px;left:39%;"><img src="/assets/images/common/sale_loading.gif"/></div>
+<form action="/authentication" id="loginForm" method="post" name="loginForm">
+<!--Page Info-->
+<div class="page_info">
+<section>
+<h2>회원서비스</h2>
+<ul>
+<li>여신금융협회</li>
+<li>가맹점 매출거래 정보 통합조회 서비스</li>
+</ul>
+</section>
+</div>
+<!--//Page Info-->
+<!--Sub-->
+<div class="sub_page">
+<!--Left Menu-->
+<aside class="left_menu">
+<nav>
+<ul>
+<li><a class="on" href="/signin">로그인</a></li>
+<li><a href="/page/member/join/findMember">아이디 찾기</a></li>
+<li><a href="/page/member/join/findPassword">비밀번호 찾기</a></li>
+<li><a href="/page/member/join/joinForm">회원가입</a></li>
+</ul>
+</nav>
+</aside>
+<!--Left Menu-->
+<!--Sub Content-->
+<div class="sub_content">
+<section class="content_title">
+<h3>로그인</h3>
+<div class="my_posion">HOME<span>&gt;</span>회원서비스<span>&gt;</span><b>로그인</b></div>
+</section>
+<div class="content_data">
+<div class="login_area">
+<div class="top_text">여신금융협회 가맹점 매출거래 정보 통합조회 서비스에 오신 것을 환영합니다.</div>
+<div class="login_form">
+<ul>
+<li><input id="j_username" name="j_username" placeholder="사용자 아이디" type="text"/></li>
+<li><input id="j_password" name="j_password" placeholder="비밀번호 5회 오류 시, 30분 동안 로그인이 제한됩니다." type="password"/></li>
+</ul>
+<button id="goLogin" type="button">LOGIN</button>
+<!--                                 <ul> -->
+<!--                                     <li> -->
+<!--                                                                            <input type="text" id="defaultReal" name="defaultReal" maxlength="5" style="width:120px;"  placeholder="&nbsp;※ 보안문자입력"> -->
+<!--                                                                    </li> -->
+<!--                                                            </ul> -->
+<div class="id_save">
+<input id="saveYn" type="checkbox" value="Y"/><label>아이디 저장</label>
+<!--                                    &nbsp;&nbsp;&nbsp; -->
+<!--                                    비밀번호 5회 오류 시, 30분 동안 로그인이 제한됩니다. -->
+</div>
+</div>
+<div class="bottom_btn_area member_btn_area">
+<ul class="align_center">
+<li><a class="gray_btn" href="/page/member/join/joinForm">회원가입</a></li>
+<li><a class="white_btn" href="/page/member/join/findMember">아이디 찾기</a></li>
+<li><a class="white_btn" href="/page/member/join/findPassword">비밀번호 찾기</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!--//Sub Content-->
+</div></form>
+</div>
+<!--//Content-->
+<!--Footer-->
+<footer>
+<ul style="text-align:left;display:inline-block;width:994px;color:#555555;margin-bottom:10px;">
+                        롯데카드<b>1588-8100</b> 
+                        비씨카드<b>1588-4500</b> 
+                        삼성카드<b>1588-8700</b> 
+                        신한카드<b>1544-7000</b> 
+                        하나카드<b>1800-1111</b> 
+                        현대카드<b>1577-6000</b> 
+                        농협NH카드<b>1644-7400</b> 
+                        KB국민카드<b>1588-1688</b> <br/>
+                        씨티은행<b>1566-1000</b>
+<!-- 
+                <ul style="text-align:center;display:inline-block;width:994px;">
+                        <li style="float:left"><img src="/assets/images/common/img_footer_direct_lotte.gif" alt="롯데카드" title="롯데카드|☎1588-8100" /></li>
+                        <li style="float:left"><img src="/assets/images/common/img_footer_direct_bc.gif" alt="비씨카드" title="비씨카드|☎1588-4500" /></li>
+                        <li style="float:left"><img src="/assets/images/common/img_footer_direct_samsung.gif" alt="삼성카드" title="삼성카드|☎1588-8700" /></li>
+                        <li style="float:left"><img src="/assets/images/common/img_footer_direct_shinhan.gif" alt="신한카드" title="신한카드|☎1544-8800" /></li>
+                        <li style="float:left"><img src="/assets/images/common/img_footer_direct_hanask.gif" alt="하나카드" title="하나카드|☎1599-1155" /></li>
+                        <li style="float:left"><img src="/assets/images/common/img_footer_direct_hyundai.gif" alt="현대카드" title="현대카드|☎1577-6000" /></li>
+                        <li style="float:left"><img src="/assets/images/common/img_footer_direct_nh.gif" alt="농협NH카드" title="농협NH카드|☎1644-7400" /></li>
+                        <li style="float:left"><img src="/assets/images/common/img_footer_direct_kb.gif" alt="KB카드" title="KB카드|☎1588-1688" /></li>
+                </ul>
+                -->
+<address>
+<ul>
+<li>서울특별시 중구 다동길 43(다동70번지) 한외빌딩13층 여신금융협회(04521) 대표전화 02-2011-0700</li>
+<li>COPYRIGHT(C) THE CREDIT FINANCE ASSOCIATION ALL RIGHTS RESERVED.</li>
+</ul>
+</address>
+</ul></footer>
+<!--//Footer-->
+</div>
+<!--================================================== -->
+<script>var contextPathSc = ""</script>
+<script src="/assets/scripts/jquery/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="/assets/scripts/jquery/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
+<script src="/assets/scripts/moment/moment.min.js" type="text/javascript"></script>
+<script src="/assets/scripts/bootpag/jquery.bootpag.min.js" type="text/javascript"></script>
+<script src="/assets/scripts/jsrender/jsrender.min.js" type="text/javascript"></script>
+<script src="/assets/scripts/common.js" type="text/javascript"></script>
+<script src="/assets/scripts/crefia.js" type="text/javascript"></script>
+<script src="/assets/scripts/crefia.util.js" type="text/javascript"></script>
+<script src="/assets/scripts/jquery/jquery.mask.min.js" type="text/javascript"></script>
+<script src="/assets/scripts/jquery/jquery.number.min.js" type="text/javascript"></script>
+<script src="/assets/scripts/msiv.js" type="text/javascript"></script> <!-- 기존js -->
+<!-- 기존js -->
+<script>
+
+        $( window ).load( function() {
+
+                hideProgressbar();
+                $( "body" ).css( "overflow-y", "auto" );
+
+        } );
+
+
+
+    $(function () {
+
+        $.views.helpers({
+            formatDateFromString: function(val, fromFormat, toFromat) {
+                return moment(val, fromFormat).format(toFromat);
+            },
+
+            dateFormatter: function( src, formatter, nvl ) {
+
+                var result = "";
+
+                src = $.trim( src );
+
+                if( src == "" ) {
+
+                    result = nvl;
+
+                }
+                else {
+
+                    result = moment( src, "YYYYMMDDHHmmss" ).format( formatter );
+                }
+
+                return result;
+            },
+
+            
+            hideAccount : function( accountNo ) {
+
+                var result = "";
+
+                if( accountNo.length > 5 ) {
+
+                    result = accountNo.substring( 0, 5 );
+
+                    for( var i = 5 ; i<accountNo.length ; i++ ) {
+
+                        result += "*";
+                    }
+
+                }
+                else {
+
+                    result = accountNo;
+                }
+
+                return result;
+            },
+
+            
+            parseFloat : function( src, nvl ) {
+
+                var result = "";
+
+                src = $.trim( src );
+
+                if( src == "" ) {
+
+                    result = ( typeof( nvl ) != "undefined" ) ? nvl : "";
+                }
+                else {
+
+                    result = isNaN( src ) ? src : parseFloat( src );
+                }
+
+                return result;
+            },
+
+            
+            parseInt : function( src ) {
+
+                var result = "";
+
+                src = $.trim( src );
+
+                if( src == "" ) {
+
+                    result = src;
+                }
+                else {
+
+                    result = isNaN( src ) ? src : parseInt( src, 10 );
+                }
+
+                return result;
+            },
+
+            
+            buzNoFormatter : function( src, nvl ) {
+
+                var result = "";
+
+                src = $.trim( src );
+
+                if( src == null  || src == "" ) {
+
+                    if( typeof( nvl ) == "undefined" ) {
+
+                        result = "";
+                    }
+                    else {
+
+                        result = nvl;
+                    }
+                }
+                else {
+
+                    if( src.length < 10 ) {
+
+                        result = src;
+                    }
+                    else {
+
+                        result = src.substring( 0, 3 ) + "-" + src.substring( 3, 5 ) + "-" + src.substring( 5 );
+                    }
+                }
+
+                return result;
+
+            },
+            
+            
+            phoneFormatter  :  function( num, type ) {
+
+                var formatNum = "";
+
+                if( typeof( num ) == "undefined" || num == null || num == "" ) {
+
+                    formatNum = "";
+                }
+                else {
+
+                    type = typeof( type ) == "undefined" ? 1 : type;
+
+                    if( num.length == 11 ) {
+
+                        if( type == 0 ) {
+
+                            formatNum = num.replace( /(\d{3})(\d{4})(\d{4})/, "$1-****-$3" );
+
+                        }
+                        else {
+
+                            formatNum = num.replace( /(\d{3})(\d{4})(\d{4})/, "$1-$2-$3" );
+                        }
+                    }
+                    else if( num.length == 8 ) {
+
+                        formatNum = num.replace( /(\d{4})(\d{4})/, "$1-$2" );
+                    }
+                    else {
+
+                        if( num.indexOf( "2" ) == 0 ) {
+
+                            if( type == 0 ) {
+
+                                formatNum = num.replace( /(\d{2})(\d{4})(\d{4})/, "$1-****-$3" );
+
+                            }
+                            else {
+
+                                formatNum = num.replace( /(\d{2})(\d{4})(\d{4})/, "$1-$2-$3" );
+                            }
+
+                        }
+                        else {
+
+                            if( type == 0 ) {
+
+                                formatNum = num.replace( /(\d{3})(\d{3})(\d{4})/, "$1-****-$3" );
+
+                            }
+                            else {
+
+                                formatNum = num.replace( /(\d{3})(\d{3})(\d{4})/, "$1-$2-$3" );
+                            }
+                        }
+
+                    }
+
+                }
+
+                return formatNum;
+            },
+
+            
+            subString : function( src, str, end ) {
+
+                var result = "";
+
+                src = $.trim( src );
+
+                if( src == "" || str < 0 || src.length < end) {
+                    result = src;
+                }
+                else {
+
+                    result = src.substring( str, end );
+                }
+
+                return result;
+            },
+
+            
+            decimalFormat : function( src , fix) {
+
+                var result = "";
+
+                src = $.trim( src );
+
+                if( src == "" || isNaN( src )) {
+                    result = src;
+                }
+                else if(src == "00.00"){
+                    result = "0.00";
+                }
+                else if(Number(src) > 0){
+                    result = Number(src).toFixed(fix);
+                }
+
+                return result;
+            },
+
+            
+            commaFormat : function( src ) {
+                var result = "";
+
+                if( src == "" || isNaN( src )) {
+                    result = src;
+                }else{
+                        result = src.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+                }
+
+                return result;
+            }
+
+        });
+
+    });
+
+        $(document).ready(function() {
+
+
+                $.ajaxSettings.traditional = true;
+
+                $.ajaxSetup({
+            beforeSend: function(xhr) {
+
+                    xhr.setRequestHeader("AJAX", true);
+
+                                showProgressbar();
+                },
+                error: function(xhr, status, err) {
+                    if (xhr.status == 401) {
+                        alert("권한이 없습니다.");
+                    } else {
+                        alert("예외가 발생했습니다. 관리자에게 문의하세요.");
+                    }
+                    location.href = "/";
+                },
+                    complete : function() {
+
+                                hideProgressbar();
+
+                    }
+
+        });
+
+        $(".datepicker").datepicker({
+                         dateFormat: 'yy-mm-dd',
+                     monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+                     dayNamesMin: ['일','월','화','수','목','금','토'],
+                     weekHeader: 'Wk',
+                     changeMonth: true, //월변경가능
+                     changeYear: true, //년변경가능
+                     showMonthAfterYear: true, //년 뒤에 월 표시
+                     showOn: "both",
+                     buttonImage: '/assets/images/icon/calendar.gif',
+                     buttonImageOnly: true, //이미지표시
+                     autoSize: false,
+                     nextText: '>',
+                     prevText: '<',
+                     yearRange:"2017:2019"
+                });
+
+        $(".datepicker").mask("9999-99-99");
+ 
+        /**메뉴 선택*/
+        var cuhref = location.href;
+        $(".left_menu nav ul li").each(function(){
+                if(cuhref.indexOf($(this).find("a").attr("href")) > -1){
+                        $(this).find("a").addClass("on");
+                }else{
+                        $(this).find("a").removeClass("on");
+                }
+        }) ;
+
+        });
+
+        /* 정보마당 호출 */
+        function goNews(){
+                //var oepnNewWindow = window.open("about:blank");
+                //oepnNewWindow.location.href = "https://www.crefia.or.kr/portal/board/board/boardDataList.do?boardid=bbs035";
+                //location.href = "/";
+        }
+
+        function showProgressbar() {
+
+            $( "#backgroundMask" ).height( $( document ).height() );
+            $( "#progressbarArea" ).show();
+            $( "#backgroundMask" ).show();
+
+        }
+
+        function hideProgressbar() {
+
+            $( "#progressbarArea" ).hide();
+            $( "#backgroundMask" ).hide();
+        }
+
+        function commaFormat( src ) {
+                var result = "";
+
+            if( src == "" || isNaN( src )) {
+                result = src;
+            }else{
+                result = src.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+            }
+
+            return result;
+        }
+
+        function intMask(){
+                //$(".money").number( true); '-'사라짐.
+                $(".money").each(function(){
+                        $(this).text(commaFormat( $(this).text() ));
+                });
+        }
+</script>
+<script src="/assets/scripts/jquery/jquery.plugin.js" type="text/javascript"></script>
+<script src="/assets/scripts/jquery/jquery.cookie.js" type="text/javascript"></script>
+<script type="text/javascript">
+        //<![CDATA[
+
+        $(document).ready(function(){
+                var error = '' ;
+                var passErrCnt = parseInt('') ;
+                var passWaitCnt = parseInt('') ;
+        
+                if(error == 'Y'){
+                        if(passErrCnt == -1){
+                                alert("일치하는 회원 정보가 없습니다.");
+                        }else if(passErrCnt < 5){
+                                alert("비밀번호가 일치하지 않습니다.(" + passErrCnt + "회 오류)");
+                        }else if(passErrCnt >= 5 && passWaitCnt > 0){
+                                alert("패스워드 5회 오류입니다. 30분 후 로그인이 가능합니다.");
+                        }
+                }else if(error == 'P'){
+                        alert("패스워드 5회 오류입니다. 30분 후 로그인이 가능합니다.");
+                }
+        
+                var crefiaUserId = $.trim($.cookie("crefiaUserId"));
+                if(crefiaUserId != ""){
+                        $("#saveYn").prop("checked",true);
+                        $("#j_username").val(crefiaUserId);
+                }else {
+                        $("#j_username").val("");
+                        $("#j_password").val("");
+                }
+        
+                $('#goLogin').on('click', function() {
+                        checkAndSubmit();
+                });
+        
+                $("#j_username").focus();
+        
+                /* 보안문자인증 설정 */
+                //$.realperson.setDefaults({length: 5}) ;
+                        //$('#defaultReal').realperson();
+        });
+
+        function checkAndSubmit() {
+
+                var frm = $('#loginForm') ;
+        
+            $('input[type=text], input[type=password]', '#loginForm').each(function(){
+                $(this).val($.trim($(this).val()));
+            });
+
+            if($('#j_username').val() == '') {
+                alert('아이디를 입력해 주시기 바랍니다.');
+
+                $('#j_username').focus();
+                return false;
+            }
+
+            if($('#j_password').val() == '') {
+                alert('비밀번호를 입력해 주시기 바랍니다.');
+                $('#j_password').focus();
+                return false;
+            }
+
+            /*
+            if($('#defaultReal').val().length != 5){
+                        alert("보안문자를 입력해 주시기 바랍니다.");
+                        $('#defaultReal').focus();
+                        return false;
+                }
+            */
+            if($("#saveYn:checked").val() == 'Y'){
+                $.cookie("crefiaUserId", $("#j_username").val(),{expires:7,path:'/',secure:false});
+            }
+            else {
+                $.cookie("crefiaUserId", "");
+            }
+
+            frm.submit();
+        }
+
+        //]]>
+    </script>
+</body>
+</html>
